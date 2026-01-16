@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Home - AmplifyX{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  {% for tweet in tweets %}
+  <div class="col-md-4 my-3">
+    <div class="card post-card shadow bg-secondary">
+
+      {% if tweet.photo %}
+      <div class="post-media">
+        <img src="{{ tweet.photo.url }}" alt="tweet image">
+      </div>
+      {% endif %}
+
+      <div class="card-body bg-secondary">
+        <h5 class="card-title">@{{ tweet.user.username }}</h5>
+        <p class="card-text"><details>
+  <summary>Read more</summary>
+ {{ tweet.text }}
+</details></p>
+
+        {% if tweet.user == user %}
+          <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary btn-sm ">Edit</a>
+          <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger btn-sm my-1">Delete</a>
+        {% endif %}
+
+        <div class="mt-2">
+          <a href="{% url 'like_tweet' tweet.id %}"
+             class="btn btn-sm btn-outline-danger">
+             ❤️ {{ tweet.like_set.count }}
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
+

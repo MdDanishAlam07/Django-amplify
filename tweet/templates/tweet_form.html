@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Home - AmplifyX{% endblock %}
+
+{% block content %}
+  <h1>Welcome to AmplifyX</h1>
+  <p>Your platform to amplify your voice.</p>
+  <h2>
+    {%if form.instance.pk%}
+    Edit Tweet
+    {%else%}
+    Create Tweet
+    {%endif%}
+    <form method="post" enctype="multipart/form-data" class="form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">
+        Submit
+      </button>
+  </form>
+  <a href="{% url 'tweet_list' %}" class="btn btn-secondary mt-3">Back to Tweet List</a>
+  </h2>
+
+</script>
+{% endblock %}
